@@ -3,7 +3,7 @@ import {sites} from './sites.db';
 // this is our global "db"
 let sitesList = sites.slice();
 
-export default class EmployeesController {
+export default class EmployeesCSite {
   constructor() {
 
   };

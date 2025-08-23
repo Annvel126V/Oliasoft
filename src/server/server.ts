@@ -4,7 +4,7 @@ import sitesRoutes from './sites/sites.routes';
 import oilRigsRoutes from './oil-rigs/oil-rigs.routes';
 
 const server = express();
-const port = process.env.port || 3000;
+const PORT = process.env.PORT || 3000
 
 server.use(cors());
 
@@ -16,6 +16,7 @@ server.get('/', (_: Request, res: Response) => {
 sitesRoutes(server);
 oilRigsRoutes(server);
 
-server.listen(port, () => {
-  console.log(`Server started on port: ${port}`);
+server.listen(PORT, () => {
+  console.log(`Server started on port: ${PORT}`);
+  console.log(`Open http://localhost:${PORT} in your browser`);
 });

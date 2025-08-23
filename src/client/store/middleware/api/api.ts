@@ -83,10 +83,16 @@ const api: Middleware =
           });
           dispatch(apiCallSuccess(response.data));
           dispatchAPICallback(dispatch, onSuccess, response.data);
-        } catch (error) {
-          dispatch(apiCallFailed(error));
-          dispatchAPICallback(dispatch, onError, error);
-        }
+        } catch (error: any) {
+  const serializedError = {
+    message: error.message,
+    name: error.name,
+    code: error.code,
+    status: error.response?.status,
+  };
+  dispatch(apiCallFailed(serializedError));
+  dispatchAPICallback(dispatch, onError, serializedError);
+}
       };
 
 export default api;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Button, Card, Heading, Column, Row} from '@oliasoft-open-source/react-ui-library';
 import {sitesLoaded} from "store/entities/sites/sites";
@@ -8,9 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 const Sites = ({ list, loading, sitesLoaded }) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    sitesLoaded();
-  }, [sitesLoaded])
   
   const sortedList = [...list].sort((a, b) => a.name.localeCompare(b.name));
   

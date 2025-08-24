@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
 import {Button, Card, Heading, Column, Row} from '@oliasoft-open-source/react-ui-library';
 import {sitesLoaded} from "store/entities/sites/sites";
 import styles from './sites.module.less';
 import { Link, useNavigate } from 'react-router-dom';
+import { sortByName } from 'src/client/utils/sortByName';
+import LoadingSpinner from '../LoadingSpinner';
 
 const Sites = ({ list, loading, sitesLoaded }) => {
   const navigate = useNavigate();
+const [showSpinner, setShowSpinner] = useState(false);
 
-  
-  const sortedList = [...list].sort((a, b) => a.name.localeCompare(b.name));
-  
+  useEffect(() => {
+    let timer;
+
+    if (loading) {
+      setShowSpinner(true);
+    } else {
+      timer = setTimeout(() => setShowSpinner(false), 500);
+    }
+
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   return (
-  
     <Card heading={<Heading>List of oil sites</Heading>}>
       <Row>
         <Column width={200}>
@@ -26,9 +36,11 @@ const Sites = ({ list, loading, sitesLoaded }) => {
         </Column>
         <Column>
           <div className={styles.sitesList}>
-            {sortedList.length ? (
-               <ul>
-                {sortedList.map((site) => (
+            {showSpinner ? (
+              <LoadingSpinner />
+            ) : list.length ? (
+              <ul>
+                {sortByName(list, "name").map((site) => (
                   <li key={site.id} className={styles.siteItem}>
                     <span>{site.name} ({site.country})</span>
                     <Button

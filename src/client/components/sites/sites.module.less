@@ -5,16 +5,20 @@
     margin: 0;
   }
   li {
-      display: flex;       
-      align-items: center; 
-      justify-content: space-between; 
-      padding: 6px 0;
-      border-bottom: 1px solid #eee; 
-      
-      button {
-        width: 150px;
-        margin-left: 12px; 
-        flex-shrink: 0;    
-      }
-    }
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 150px;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .col {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  button {
+    width: 100%;
+  }
 }

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Heading, Button, Spacer } from "@oliasoft-open-source/react-ui-library";
+import {
+  Heading,
+  Button,
+  Spacer,
+} from "@oliasoft-open-source/react-ui-library";
 import axios from "axios";
 import { sortByName } from "src/client/utils/sortByName";
 import LoadingSpinner from "src/client/components/LoadingSpinner";
-
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -12,11 +15,11 @@ export const SiteDetails = () => {
 
   const [site, setSite] = useState(null);
   const [oilRigs, setOilRigs] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     setIsLoading(true);
-
-    const MIN_LOADER_TIME = 500;
+    const MIN_LOADER_TIME = 300;
     const startTime = Date.now();
 
     const fetchData = async () => {

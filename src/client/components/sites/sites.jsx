@@ -62,22 +62,36 @@ const Sites = ({ list, loading, sitesLoaded }) => {
     <Card heading={<Heading>List of oil sites</Heading>}>
       <Row>
         <Column width={200}>
-          <Button
-            label="Load sites"
-            onClick={sitesLoaded}
-            loading={loading}
-            disabled={loading}
-          />
-          <Spacer />
-          <Button
-            label={sortDesc ? "Sort A-Z" : "Sort Z-A"}
-            onClick={() => setSortDesc((prev) => !prev)}
-          />
-          <Spacer />
-          <Button
-            label="Go to Oil Rigs"
-            onClick={() => navigate("/oil-rigs")}
-          />
+          <div>
+            <div className={styles.buttonStack}>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  label="Load sites"
+                  onClick={sitesLoaded}
+                  loading={loading}
+                  disabled={loading}
+                />
+              </div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  label={sortDesc ? "Sort A-Z" : "Sort Z-A"}
+                  onClick={() => setSortDesc((p) => !p)}
+                />
+              </div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  label="Go to Oil Rigs"
+                  onClick={() => navigate("/oil-rigs")}
+                />
+              </div>
+              <div className={styles.buttonWrapper}>
+                <Button
+                  label="Go to Chart"
+                  onClick={() => navigate("/chart")}
+                />
+              </div>
+            </div>
+          </div>
         </Column>
         <Column>
           {showSpinner ? (
@@ -86,15 +100,21 @@ const Sites = ({ list, loading, sitesLoaded }) => {
             <ul className={styles.sitesList}>
               {finalList.map((site) => (
                 <li key={site.id} className={styles.siteItem}>
-                  <div className={styles.col}>{site.name}</div>
-                  <div className={styles.col}>{site.country}</div>
-                  <div className={styles.col}>
+                  <div className={`${styles.col} ${styles.siteText}`}>
+                    {site.name}
+                  </div>
+                  <div className={`${styles.col} ${styles.siteText}`}>
+                    {site.country}
+                  </div>
+                  <div className={`${styles.col} ${styles.siteText}`}>
                     {site.oilRigsShort[0] || "—"}
                   </div>
-                  <Button
-                    label="Details"
-                    onClick={() => navigate(`/sites/${site.id}`)}
-                  />
+                  <div className={styles.buttonWrapper}>
+                    <Button
+                      label="Details"
+                      onClick={() => navigate(`/sites/${site.id}`)}
+                    />
+                  </div>
                 </li>
               ))}
             </ul>

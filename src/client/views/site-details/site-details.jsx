@@ -8,6 +8,7 @@ import {
 import axios from "axios";
 import { sortByName } from "src/client/utils/sortByName";
 import LoadingSpinner from "src/client/components/LoadingSpinner";
+import styles from "./site-details.module.less";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -52,17 +53,28 @@ export const SiteDetails = () => {
   if (!site) return <em>Site not found</em>;
 
   return (
-    <div>
-      <Heading>{site?.name}</Heading>
-      <p>Country: {site?.country}</p>
-      <h4>Oil Rigs</h4>
-      <ul>
-        {sortByName(oilRigs).map((rigName, index) => (
-          <li key={index}>{rigName}</li>
-        ))}
-      </ul>
+    <div className={styles.container}>
+      <div className={styles.headingWrapper}>
+        <Heading>{site?.name}</Heading>
+      </div>
+
+      <p className={styles.country}>{`Country: ${site?.country}`}</p>
+
+      <h4 className={styles.title}>Oil Rigs</h4>
+
+      <div className={styles.listWrapper}>
+        <ul>
+          {sortByName(oilRigs).map((rigName, index) => (
+            <li key={index}>{rigName}</li>
+          ))}
+        </ul>
+      </div>
+
       <Spacer />
-      <Button label="Back" onClick={() => navigate("/")} />
+
+      <div className={styles.buttonWrapper}>
+        <Button label="Back" onClick={() => navigate("/")} />
+      </div>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { Main } from "client/views/main/main";
 import { SiteDetails } from "./site-details/site-details";
 import { OilRigs } from "../components/oil-rigs/oil-rigs";
 import { OilRigsView } from "./oil-rigs/oil-rigs-view";
+import { ChartView } from "./chart/chart-view";
 
 export const App = () => {
   return (
@@ -20,6 +21,7 @@ export const App = () => {
         <Route path="/" element={<Main />} />
         <Route path="/sites/:id" element={<SiteDetails />} />
         <Route path="/oil-rigs" element={<OilRigsView />} />
+        <Route path="/chart" element={<ChartView />} />
       </Routes>
     </>
   );

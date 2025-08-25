@@ -55,7 +55,6 @@ export const OilRigsView = () => {
               <Button label="Back" onClick={() => navigate("/")} />
             </div>
           </Column>
-
           <Column>
             <div>
               {showSpinner ? (

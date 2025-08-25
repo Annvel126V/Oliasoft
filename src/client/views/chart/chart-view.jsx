@@ -38,7 +38,6 @@ export const ChartView = () => {
     }
   }, [dispatch, sites.length]);
 
-  // керуємо спінером
   useEffect(() => {
     let timer;
     if (loading) setShowSpinner(true);

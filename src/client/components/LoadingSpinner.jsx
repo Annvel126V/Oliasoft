@@ -20,7 +20,7 @@ const LoadingSpinner = () => {
         visible={true}
         height="100"
         width="100"
-        color="#494b48ff"
+        color="#6e7072"
         ariaLabel="three-circles-loading"
       />
     </div>

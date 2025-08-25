@@ -57,11 +57,8 @@ export const SiteDetails = () => {
       <div className={styles.headingWrapper}>
         <Heading>{site?.name}</Heading>
       </div>
-
       <p className={styles.country}>{`Country: ${site?.country}`}</p>
-
       <h4 className={styles.title}>Oil Rigs</h4>
-
       <div className={styles.listWrapper}>
         <ul>
           {sortByName(oilRigs).map((rigName, index) => (
@@ -69,9 +66,7 @@ export const SiteDetails = () => {
           ))}
         </ul>
       </div>
-
       <Spacer />
-
       <div className={styles.buttonWrapper}>
         <Button label="Back" onClick={() => navigate("/")} />
       </div>

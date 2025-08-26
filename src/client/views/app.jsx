@@ -4,7 +4,6 @@ import { TopBar } from "@oliasoft-open-source/react-ui-library";
 import Logo from "client/views/images/logo.svg";
 import { Main } from "client/views/main/main";
 import { SiteDetails } from "./site-details/site-details";
-import { OilRigs } from "../components/oil-rigs/oil-rigs";
 import { OilRigsView } from "./oil-rigs/oil-rigs-view";
 import { ChartView } from "./chart/chart-view";
 

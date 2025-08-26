@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { connect } from "react-redux";
 import {
   Button,
@@ -6,11 +6,10 @@ import {
   Heading,
   Column,
   Row,
-  Spacer,
 } from "@oliasoft-open-source/react-ui-library";
 import { sitesLoaded } from "store/entities/sites/sites";
 import styles from "./sites.module.less";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { sortByName } from "src/client/utils/sortByName";
 import LoadingSpinner from "../LoadingSpinner";
 import axios from "axios";
@@ -20,6 +19,7 @@ const Sites = ({ list, loading, sitesLoaded }) => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [rigsMap, setRigsMap] = useState({});
   const [sortDesc, setSortDesc] = useState(false);
+  const [rigsLoading, setRigsLoading] = useState(true);
 
   useEffect(() => {
     let timer;
@@ -31,7 +31,10 @@ const Sites = ({ list, loading, sitesLoaded }) => {
   useEffect(() => {
     const fetchRigs = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/oil-rigs");
+        setRigsLoading(true);
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/oil-rigs`
+        );
         const map = res.data.reduce((acc, rig) => {
           acc[rig.id] = rig.name;
           return acc;
@@ -39,6 +42,8 @@ const Sites = ({ list, loading, sitesLoaded }) => {
         setRigsMap(map);
       } catch (err) {
         console.error("Failed to load rigs", err);
+      } finally {
+        setRigsLoading(false);
       }
     };
     fetchRigs();
@@ -64,7 +69,7 @@ const Sites = ({ list, loading, sitesLoaded }) => {
         <Column width={200}>
           <div>
             <div className={styles.buttonStack}>
-              <div className={styles.buttonWrapper}>
+              <div>
                 <Button
                   label="Load sites"
                   onClick={sitesLoaded}
@@ -72,19 +77,19 @@ const Sites = ({ list, loading, sitesLoaded }) => {
                   disabled={loading}
                 />
               </div>
-              <div className={styles.buttonWrapper}>
+              <div>
                 <Button
                   label={sortDesc ? "Sort A-Z" : "Sort Z-A"}
                   onClick={() => setSortDesc((p) => !p)}
                 />
               </div>
-              <div className={styles.buttonWrapper}>
+              <div>
                 <Button
                   label="Go to Oil Rigs"
                   onClick={() => navigate("/oil-rigs")}
                 />
               </div>
-              <div className={styles.buttonWrapper}>
+              <div>
                 <Button
                   label="Go to Chart"
                   onClick={() => navigate("/chart")}
@@ -97,29 +102,52 @@ const Sites = ({ list, loading, sitesLoaded }) => {
           {showSpinner ? (
             <LoadingSpinner />
           ) : finalList.length ? (
-            <ul className={styles.sitesList}>
-              {finalList.map((site) => (
-                <li key={site.id} className={styles.siteItem}>
-                  <div className={`${styles.col} ${styles.siteText}`}>
-                    {site.name}
-                  </div>
-                  <div className={`${styles.col} ${styles.siteText}`}>
-                    {site.country}
-                  </div>
-                  <div className={`${styles.col} ${styles.siteText}`}>
-                    {site.oilRigsShort[0] || "—"}
-                  </div>
-                  <div className={styles.buttonWrapper}>
-                    <Button
-                      label="Details"
-                      onClick={() => navigate(`/sites/${site.id}`)}
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <div className={styles.table}>
+              <div className={`${styles.row} ${styles.header}`}>
+                <div className={styles.cell}>Name</div>
+                <div className={styles.cell}>Country</div>
+                <div className={styles.cell}>Oil rigs</div>
+                <div className={`${styles.cell} ${styles.actions}`}>
+                  Actions
+                </div>
+              </div>
+
+              <ul className={styles.list} role="list">
+                {finalList.map((site) => (
+                  <li key={site.id} className={styles.row} role="listitem">
+                    <div className={styles.cell} title={site.name}>
+                      {site.name}
+                    </div>
+                    <div className={styles.cell} title={site.country}>
+                      {site.country}
+                    </div>
+                    <div className={`${styles.cell} ${styles.rigsCell}`}>
+                      {rigsLoading ? (
+                        <span className={styles.muted}>Loading rigs…</span>
+                      ) : site.oilRigsShort.length ? (
+                        <div className={styles.rigsChips}>
+                          {site.oilRigsShort.map((r) => (
+                            <span key={r} className={styles.chip} title={r}>
+                              {r}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className={styles.muted}>—</span>
+                      )}
+                    </div>
+                    <div className={`${styles.cell} ${styles.actions}`}>
+                      <Button
+                        label="Details"
+                        onClick={() => navigate(`/sites/${site.id}`)}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ) : (
-            <em>None loaded</em>
+            <em className={styles.muted}>None loaded</em>
           )}
         </Column>
       </Row>

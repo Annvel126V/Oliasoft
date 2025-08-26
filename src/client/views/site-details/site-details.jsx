@@ -25,12 +25,16 @@ export const SiteDetails = () => {
 
     const fetchData = async () => {
       try {
-        const siteRes = await axios.get(`http://localhost:3000/api/sites`);
-        const siteData = siteRes.data.find((s) => s.id === id);
+        const siteRes = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/sites`
+        );
+        const siteData = siteRes.data.find((s) => String(s.id) === String(id));
         setSite(siteData);
 
         if (siteData) {
-          const rigsRes = await axios.get("http://localhost:3000/api/oil-rigs");
+          const rigsRes = await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/oil-rigs`
+          );
           const rigsMap = rigsRes.data.reduce((acc, rig) => {
             acc[rig.id] = rig.name;
             return acc;
@@ -53,22 +57,24 @@ export const SiteDetails = () => {
   if (!site) return <em>Site not found</em>;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.headingWrapper}>
-        <Heading>{site?.name}</Heading>
-      </div>
-      <p className={styles.country}>{`Country: ${site?.country}`}</p>
-      <h4 className={styles.title}>Oil Rigs</h4>
-      <div className={styles.listWrapper}>
-        <ul>
-          {sortByName(oilRigs).map((rigName, index) => (
-            <li key={index}>{rigName}</li>
-          ))}
-        </ul>
-      </div>
-      <Spacer />
-      <div className={styles.buttonWrapper}>
-        <Button label="Back" onClick={() => navigate("/")} />
+    <div className={styles.pageWrapper}>
+      <div className={styles.container}>
+        <div className={styles.headingWrapper}>
+          <Heading>{site?.name}</Heading>
+        </div>
+        <p className={styles.country}>{`Country: ${site?.country}`}</p>
+        <h4 className={styles.title}>Oil Rigs</h4>
+        <div className={styles.listWrapper}>
+          <ul>
+            {sortByName(oilRigs).map((rigName, index) => (
+              <li key={index}>{rigName}</li>
+            ))}
+          </ul>
+        </div>
+        <Spacer />
+        <div className={styles.buttonWrapper}>
+          <Button label="Back" onClick={() => navigate("/")} />
+        </div>
       </div>
     </div>
   );

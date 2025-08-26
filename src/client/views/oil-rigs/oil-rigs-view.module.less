@@ -1,35 +1,45 @@
+@radius: 12px;
+@shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+@grad-surface: linear-gradient(135deg, rgb(236, 234, 229), rgb(182, 180, 180));
+@text-gray: #6e7072;
+
 .container {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+
   box-sizing: border-box;
-  background: linear-gradient(135deg, rgb(236, 234, 229), rgb(182, 180, 180));
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  border-radius: 12px;
+  background: @grad-surface;
+  box-shadow: @shadow;
+  border-radius: @radius;
+  padding: 8px 0;
 }
 
-.buttonWrapper button,
-button {
-  width: 100%;
-  padding: 12px 0;
+.buttonStack {
+  display: grid;
   font-size: 16px;
-  font-weight: bold;
-  margin-top: 20px;
-  border: none;
-  border-radius: 12px;
-  background-color: #6e7072;
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease-in-out;
-  text-align: center;
+  -webkit-text-fill-color: #6e7072;
+}
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.buttonWrapper button:hover,
-button:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-  background-color: #f3f5f7;
+.item {
+  padding: 10px 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  &:first-child {
+    border-top: none;
+  }
+
+  strong {
+    -webkit-text-fill-color: @text-gray;
+  }
+}
+
+.muted {
+  color: #90939b;
 }
 
 .listWrapper ul,

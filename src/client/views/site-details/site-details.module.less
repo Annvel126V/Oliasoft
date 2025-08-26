@@ -1,62 +1,84 @@
-.container {
+@radius: 12px;
+@shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+@grad-surface: linear-gradient(135deg, rgb(230, 225, 215), rgb(182, 180, 180));
+@grad-chip: linear-gradient(135deg, rgb(243, 242, 241), rgb(224, 222, 222));
+@text-gray: #6e7072;
+
+.pageWrapper {
+  min-height: 100vh;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 880px;
+  width: 100%;
   padding: 16px;
   box-sizing: border-box;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgb(230, 225, 215), rgb(182, 180, 180));
+  border-radius: @radius;
+  background: @grad-surface;
+  box-shadow: @shadow;
+}
+
+.headingWrapper {
+  margin-bottom: 4px;
 }
 
 .country {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 600;
   margin-left: 20px;
-  -webkit-text-fill-color: #6e7072;
+  -webkit-text-fill-color: @text-gray;
 }
 
 .title {
   font-size: 24px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  margin-left: 20px;
-  text-align: center;
-  -webkit-text-fill-color: #6e7072;
+  margin: 8px 0 8px 20px;
+  -webkit-text-fill-color: @text-gray;
   text-shadow: 1px 1px 2px rgba(90, 88, 88, 0.3);
 }
 
-.listWrapper ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.listWrapper ul li {
-  font-size: 24px;
-  margin: 16px 0;
+.listWrapper {
   margin-left: 20px;
-  color: #333;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+  }
 }
 
-.buttonWrapper button {
-  width: 100%;
-  padding: 12px 62px;
+.buttonWrapper {
   margin-left: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  background-color: #6e7072;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease-in-out;
+  margin-top: 8px;
 }
 
-.buttonWrapper button:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-  background-color: #f3f5f7;
+.muted {
+  color: #90939b;
+}
+
+.rigsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 20px 16px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: @grad-chip;
+  font-size: 14px;
+  -webkit-text-fill-color: @text-gray;
 }

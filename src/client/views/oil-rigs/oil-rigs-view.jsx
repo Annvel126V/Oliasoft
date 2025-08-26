@@ -39,7 +39,7 @@ export const OilRigsView = () => {
       <div className={styles.container}>
         <Row>
           <Column width={220}>
-            <div className={styles.buttonWrapper}>
+            <div className={styles.buttonStack}>
               <Button
                 label="Load oil rigs"
                 onClick={() => dispatch(oilRigsLoaded())}
@@ -60,15 +60,15 @@ export const OilRigsView = () => {
               {showSpinner ? (
                 <LoadingSpinner />
               ) : finalList.length ? (
-                <ul>
+                <ul className={styles.list}>
                   {finalList.map((rig) => (
-                    <li key={rig.id}>
+                    <li key={rig.id} className={styles.item}>
                       <strong>{rig.name}</strong> ({rig.manufacturer})
                     </li>
                   ))}
                 </ul>
               ) : (
-                <em>None loaded</em>
+                <em className={styles.muted}>None loaded</em>
               )}
             </div>
           </Column>

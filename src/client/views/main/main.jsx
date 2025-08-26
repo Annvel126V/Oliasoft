@@ -7,7 +7,7 @@ export const Main = ({}) => {
   return (
     <Page left={0}>
       <div className={styles.heading}>
-        <h1 top>Hiring Challenge</h1>
+        <Heading top>Hiring Challenge</Heading>
       </div>
       <Sites />
     </Page>

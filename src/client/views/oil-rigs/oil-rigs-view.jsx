@@ -13,6 +13,7 @@ import { oilRigsLoaded } from "store/entities/oil-rigs/oil-rigs";
 import { sortByName } from "client/utils/sortByName";
 import LoadingSpinner from "client/components/LoadingSpinner";
 import styles from "./oil-rigs-view.module.less";
+import { useDelayedLoader } from "src/client/hooks/useDelayedLoader";
 
 export const OilRigsView = () => {
   const navigate = useNavigate();
@@ -22,14 +23,8 @@ export const OilRigsView = () => {
   const loading = useSelector((state) => state.entities.oilRigs.loading);
 
   const [sortDesc, setSortDesc] = useState(false);
-  const [showSpinner, setShowSpinner] = useState(false);
 
-  useEffect(() => {
-    let timer;
-    if (loading) setShowSpinner(true);
-    else timer = setTimeout(() => setShowSpinner(false), 300);
-    return () => clearTimeout(timer);
-  }, [loading]);
+  const showSpinner = useDelayedLoader(loading, 300);
 
   const sorted = sortByName(list, "name");
   const finalList = sortDesc ? [...sorted].reverse() : sorted;

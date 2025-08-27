@@ -13,20 +13,15 @@ import { useNavigate } from "react-router-dom";
 import { sortByName } from "src/client/utils/sortByName";
 import LoadingSpinner from "../LoadingSpinner";
 import axios from "axios";
+import { useDelayedLoader } from "src/client/hooks/useDelayedLoader";
 
 const Sites = ({ list, loading, sitesLoaded }) => {
   const navigate = useNavigate();
-  const [showSpinner, setShowSpinner] = useState(false);
   const [rigsMap, setRigsMap] = useState({});
   const [sortDesc, setSortDesc] = useState(false);
   const [rigsLoading, setRigsLoading] = useState(true);
 
-  useEffect(() => {
-    let timer;
-    if (loading) setShowSpinner(true);
-    else timer = setTimeout(() => setShowSpinner(false), 300);
-    return () => clearTimeout(timer);
-  }, [loading]);
+  const showSpinner = useDelayedLoader(loading, 300);
 
   useEffect(() => {
     const fetchRigs = async () => {

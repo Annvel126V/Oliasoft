@@ -9,6 +9,7 @@ import axios from "axios";
 import { sortByName } from "src/client/utils/sortByName";
 import LoadingSpinner from "src/client/components/LoadingSpinner";
 import styles from "./site-details.module.less";
+import { useDelayedLoader } from "src/client/hooks/useDelayedLoader";
 
 export const SiteDetails = () => {
   const { id } = useParams();
@@ -18,11 +19,9 @@ export const SiteDetails = () => {
   const [oilRigs, setOilRigs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const MIN_LOADER_TIME = 300;
-    const startTime = Date.now();
+  const showSpinner = useDelayedLoader(isLoading, 300);
 
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const siteRes = await axios.get(
@@ -44,9 +43,7 @@ export const SiteDetails = () => {
       } catch (error) {
         console.error(error);
       } finally {
-        const elapsed = Date.now() - startTime;
-        const remaining = MIN_LOADER_TIME - elapsed;
-        setTimeout(() => setIsLoading(false), remaining > 0 ? remaining : 0);
+        setIsLoading(false);
       }
     };
 

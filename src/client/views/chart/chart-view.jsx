@@ -22,6 +22,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useDelayedLoader } from "src/client/hooks/useDelayedLoader";
 
 export const ChartView = () => {
   const navigate = useNavigate();
@@ -30,20 +31,13 @@ export const ChartView = () => {
   const sites = useSelector((state) => state.entities.sites.list);
   const loading = useSelector((state) => state.entities.sites.loading);
 
-  const [showSpinner, setShowSpinner] = useState(false);
-
   useEffect(() => {
     if (!sites.length) {
       dispatch(sitesLoaded());
     }
   }, [dispatch, sites.length]);
 
-  useEffect(() => {
-    let timer;
-    if (loading) setShowSpinner(true);
-    else timer = setTimeout(() => setShowSpinner(false), 300);
-    return () => clearTimeout(timer);
-  }, [loading]);
+  const showSpinner = useDelayedLoader(loading, 300);
 
   const chartData = sortByName(sites, "name").map((site) => ({
     name: site.name,

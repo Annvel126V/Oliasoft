@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Card,
   Heading,
@@ -14,13 +14,17 @@ import { sortByName } from "client/utils/sortByName";
 import LoadingSpinner from "client/components/LoadingSpinner";
 import styles from "./oil-rigs-view.module.less";
 import { useDelayedLoader } from "src/client/hooks/useDelayedLoader";
+import {
+  selectOilRigsList,
+  selectOilRigsLoading,
+} from "src/client/store/entities/oil-rigs/oil-rigs.selectors";
 
 export const OilRigsView = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const list = useSelector((state) => state.entities.oilRigs.list);
-  const loading = useSelector((state) => state.entities.oilRigs.loading);
+  const list = useSelector(selectOilRigsList);
+  const loading = useSelector(selectOilRigsLoading);
 
   const [sortDesc, setSortDesc] = useState(false);
 

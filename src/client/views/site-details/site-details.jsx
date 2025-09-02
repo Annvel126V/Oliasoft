@@ -50,7 +50,7 @@ export const SiteDetails = () => {
     fetchData();
   }, [id]);
 
-  if (isLoading) return <LoadingSpinner />;
+  if (showSpinner) return <LoadingSpinner />;
   if (!site) return <em>Site not found</em>;
 
   return (
@@ -64,7 +64,7 @@ export const SiteDetails = () => {
         <div className={styles.listWrapper}>
           <ul>
             {sortByName(oilRigs).map((rigName, index) => (
-              <li key={index}>{rigName}</li>
+              <li key={rigName}>{rigName}</li>
             ))}
           </ul>
         </div>

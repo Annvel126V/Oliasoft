@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Card,
   Heading,
   Button,
   Row,
   Column,
-  Spacer,
 } from "@oliasoft-open-source/react-ui-library";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,13 +22,17 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useDelayedLoader } from "src/client/hooks/useDelayedLoader";
+import {
+  selectSitesList,
+  selectSitesLoading,
+} from "src/client/store/entities/sites/sites.selectors";
 
 export const ChartView = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const sites = useSelector((state) => state.entities.sites.list);
-  const loading = useSelector((state) => state.entities.sites.loading);
+  const sites = useSelector(selectSitesList);
+  const loading = useSelector(selectSitesLoading);
 
   useEffect(() => {
     if (!sites.length) {

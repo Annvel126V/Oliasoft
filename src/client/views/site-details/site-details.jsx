@@ -63,7 +63,7 @@ export const SiteDetails = () => {
         <h4 className={styles.title}>Oil Rigs</h4>
         <div className={styles.listWrapper}>
           <ul>
-            {sortByName(oilRigs).map((rigName, index) => (
+            {sortByName(oilRigs).map((rigName) => (
               <li key={rigName}>{rigName}</li>
             ))}
           </ul>

@@ -1,12 +1,12 @@
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react-swc';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import path from 'path';
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react-swc";
+import tsconfigPaths from "vite-tsconfig-paths";
+import path from "path";
 
 export default defineConfig({
-  base: '/',
+  base: "/",
   define: {
-    globalThis: 'globalThis',
+    globalThis: "globalThis",
   },
   publicDir: false,
   server: {
@@ -15,21 +15,18 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      server: path.resolve(__dirname, './src/server/'),
-      client: path.resolve(__dirname, './src/client/'),
-      store: path.resolve(__dirname, './src/client/store/'),
+      server: path.resolve(__dirname, "./src/server/"),
+      client: path.resolve(__dirname, "./src/client/"),
+      store: path.resolve(__dirname, "./src/client/store/"),
     },
   },
-  plugins: [
-    react(),
-    tsconfigPaths()
-  ],
+  plugins: [react(), tsconfigPaths()],
   build: {
-    emptyOutDir: true
+    emptyOutDir: true,
   },
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./setupVitest.js']
+    environment: "jsdom",
+    setupFiles: ["./setupVitest.js"],
   },
 });

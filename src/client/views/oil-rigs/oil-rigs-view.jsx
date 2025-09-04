@@ -18,6 +18,7 @@ import {
   selectOilRigsList,
   selectOilRigsLoading,
 } from "src/client/store/entities/oil-rigs/oil-rigs.selectors";
+import { SortToggleButton } from "src/client/components/SortToggleButton";
 
 export const OilRigsView = () => {
   const navigate = useNavigate();
@@ -46,10 +47,7 @@ export const OilRigsView = () => {
                 disabled={loading}
               />
               <Spacer />
-              <Button
-                label={sortDesc ? "Sort A-Z" : "Sort Z-A"}
-                onClick={() => setSortDesc((prev) => !prev)}
-              />
+              <SortToggleButton onChange={setSortDesc} />
               <Spacer />
               <Button label="Back" onClick={() => navigate("/")} />
             </div>
@@ -60,7 +58,7 @@ export const OilRigsView = () => {
                 <LoadingSpinner />
               ) : finalList.length ? (
                 <ul className={styles.list}>
-                  {finalList.map((rig) => (
+                  {finalList.map((rig, i) => (
                     <li key={rig.id} className={styles.item}>
                       <strong>{rig.name}</strong> ({rig.manufacturer})
                     </li>

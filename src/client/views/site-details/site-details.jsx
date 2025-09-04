@@ -35,7 +35,10 @@ export const SiteDetails = () => {
             `${import.meta.env.VITE_API_BASE_URL}/oil-rigs`
           );
           const rigsMap = rigsRes.data.reduce((acc, rig) => {
-            acc[rig.id] = rig.name;
+            acc[rig.id] = {
+              name: rig.name,
+              manufacturer: rig.manufacturer,
+            };
             return acc;
           }, {});
           setOilRigs(siteData.oilRigs.map((rigId) => rigsMap[rigId] || rigId));
@@ -63,8 +66,10 @@ export const SiteDetails = () => {
         <h4 className={styles.title}>Oil Rigs</h4>
         <div className={styles.listWrapper}>
           <ul>
-            {sortByName(oilRigs).map((rigName) => (
-              <li key={rigName}>{rigName}</li>
+            {sortByName(oilRigs).map((rig, i) => (
+              <li key={rig.id}>
+                {rig.name}, {rig.manufacturer}
+              </li>
             ))}
           </ul>
         </div>

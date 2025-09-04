@@ -14,6 +14,7 @@ import { sortByName } from "src/client/utils/sortByName";
 import LoadingSpinner from "../LoadingSpinner";
 import axios from "axios";
 import { useDelayedLoader } from "src/client/hooks/useDelayedLoader";
+import { SortToggleButton } from "../SortToggleButton";
 
 const Sites = ({ list, loading, sitesLoaded }) => {
   const navigate = useNavigate();
@@ -44,9 +45,9 @@ const Sites = ({ list, loading, sitesLoaded }) => {
     fetchRigs();
   }, []);
 
-  const getRigNamesShort = (rigIds) => {
+  const getRigNamesShort = (rigIds, index) => {
     if (!rigIds || !rigIds.length) return ["—"];
-    const names = rigIds.map((id) => rigsMap[id] || id);
+    const names = rigIds.map((id) => rigsMap[id]).filter(Boolean);
     return [...new Set(names)];
   };
 
@@ -73,10 +74,7 @@ const Sites = ({ list, loading, sitesLoaded }) => {
                 />
               </div>
               <div>
-                <Button
-                  label={sortDesc ? "Sort A-Z" : "Sort Z-A"}
-                  onClick={() => setSortDesc((p) => !p)}
-                />
+                <SortToggleButton onChange={setSortDesc} />
               </div>
               <div>
                 <Button
